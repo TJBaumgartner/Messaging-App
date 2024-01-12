@@ -5,13 +5,11 @@ import Index from './components/Index'
 import ErrorPage from './components/ErrorPage'
 import Signup from './components/SignUp'
 import Login from './components/Login'
-import Navbar from './components/Navbar';
 
 function App() {
 
   return (
     <div>
-        <Navbar></Navbar>
         <Routes>
           <Route path="/" element={<Index/>}/>
           <Route path="/login" element={<Login/>}/>

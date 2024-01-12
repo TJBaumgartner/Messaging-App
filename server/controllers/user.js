@@ -18,6 +18,17 @@ exports.sign_up_post = asyncHandler(async (req,res) => {
     return res.status(200).send('New User created!')
 })
 
+exports.logout = asyncHandler(async (req,res) => {
+    const token = req.body.token;
+    if(token == null) return res.sendStatus(404);
+    const clearToken = await Token.findOne({token: token})
+    if(!clearToken){
+        return res.sendStatus(403)
+    }
+    await Token.findOneAndDelete({token: req.body.token});
+    return res.sendStatus(200)
+})
+
 function generateAccessToken(user) {
     return jwt.sign(user, process.env.ACCESS_TOKEN, {expiresIn: '5m'})
 }

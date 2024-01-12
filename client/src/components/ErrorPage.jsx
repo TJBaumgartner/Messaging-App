@@ -5,6 +5,7 @@ function ErrorPage() {
 
   return (
     <>
+        <Navbar></Navbar>
         <h1>Error</h1>
     </>
   )

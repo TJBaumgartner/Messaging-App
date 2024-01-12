@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import '../App.css'
+import Navbar from './Navbar';
 
 function Login() {
     const navigate = useNavigate()
@@ -42,10 +43,11 @@ function Login() {
 
     return (
         <div>
+            <Navbar></Navbar>
             <form action="" method='POST' onSubmit={handleSubmit}>
                 <input type="text" name='text' id="username" value={username} placeholder='Username/Email' onChange={(e) => setUsername(e.target.value)} required></input>
                 <input type="password" name='password' id="password" value={password} onChange={(e) => setPassword(e.target.value)} required></input>
-                <button type='submit'>Sign Up!</button>
+                <button type='submit'>Log in</button>
             </form>
         </div>
     )
