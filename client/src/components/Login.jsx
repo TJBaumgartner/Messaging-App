@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import '../App.css'
 import Navbar from './Navbar';
 
-function Login() {
+function Login(props) {
     const navigate = useNavigate()
-
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [passwordError, setPasswordError] = useState("")
@@ -37,6 +36,7 @@ function Login() {
                 localStorage.setItem('refresh', data.refreshToken);
                 localStorage.setItem('name', data.name);
                 localStorage.setItem('userID', data.userId);
+                props.setLoggedIn(true)
                 navigate('/');
             })
     }
@@ -46,9 +46,15 @@ function Login() {
             <Navbar></Navbar>
             <form action="" method='POST' onSubmit={handleSubmit}>
                 <input type="text" name='text' id="username" value={username} placeholder='Username/Email' onChange={(e) => setUsername(e.target.value)} required></input>
-                <input type="password" name='password' id="password" value={password} onChange={(e) => setPassword(e.target.value)} required></input>
+                <input type="password" placeholder="Password"name='password' id="password" value={password} onChange={(e) => setPassword(e.target.value)} required></input>
                 <button type='submit'>Log in</button>
             </form>
+            {passwordError == true &&
+                <h3>Password is not correct</h3>
+            }
+            {usernameError == true &&
+                <h3>Username does not exist</h3>
+            }
         </div>
     )
 }

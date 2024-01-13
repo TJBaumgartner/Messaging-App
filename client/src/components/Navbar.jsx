@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import {useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = (props) => {
     const navigate = useNavigate()
-    
+    const loggedIn = props.loggedIn
+    const setLoggedIn = props.setLoggedIn
     const logout = async() => {
         await fetch('http://localhost:5000/api/logout', {
             method: 'POST',
@@ -15,19 +16,11 @@ const Navbar = () => {
         })
         .then((response) => {
             localStorage.clear()
+            setLoggedIn(false)
             navigate('/login')
             return response.json()
         })
     }
-    
-    
-    const [loggedIn, setLoggedIn] = useState(false)
-
-    useEffect(() => {
-        if(localStorage.length > 0){
-            setLoggedIn(true)
-        }
-    }, [loggedIn])
 
     return (
         <div className="Navbar"> 
@@ -45,8 +38,14 @@ const Navbar = () => {
                             </Link>
                         </div> 
                     }  
-
-                    <button onClick={()=> logout()}>Logout</button>
+                    {loggedIn == true &&
+                        <div>
+                            <Link to="/">
+                                Home
+                            </Link>    
+                            <button onClick={()=> logout()}>Logout</button>
+                        </div>
+                    }
                 </div>
         </div>
   );

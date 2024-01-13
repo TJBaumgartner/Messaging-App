@@ -38,8 +38,8 @@ function SignUp() {
             <Navbar></Navbar>
             <form action="" method='POST' onSubmit={handleSubmit}>
                 <input type="text" name='text' id="username" value={username} placeholder='Username/Email' onChange={(e) => setUsername(e.target.value)} required></input>
-                <input type="password" name='password' id="password" value={password} onChange={(e) => setPassword(e.target.value)} required></input>
-                <input type="password" name='confirmPassword' id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required></input>
+                <input type="password" name='password' id="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} required></input>
+                <input type="password" name='confirmPassword' id="confirmPassword" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required></input>
                 <button type='submit'>Sign Up!</button>
             </form>
             {matchPassword === false &&
