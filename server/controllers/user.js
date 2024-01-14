@@ -30,7 +30,7 @@ exports.logout = asyncHandler(async (req,res) => {
 })
 
 function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN, {expiresIn: '5m'})
+    return jwt.sign(user, process.env.ACCESS_TOKEN, {expiresIn: '20s'})
 }
 
 exports.login = asyncHandler(async (req, res) => {
@@ -75,4 +75,8 @@ exports.refresh =  asyncHandler(async (req, res) => {
     } catch(err){
         res.sendStatus(401)
     }
+})
+
+exports.test =  asyncHandler(async (req, res) => {
+    res.json("hi")
 })

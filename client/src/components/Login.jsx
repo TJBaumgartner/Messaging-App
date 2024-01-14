@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
+
 import '../App.css'
-import Navbar from './Navbar';
 
 function Login(props) {
     const navigate = useNavigate()
@@ -9,6 +10,12 @@ function Login(props) {
     const [password, setPassword] = useState("")
     const [passwordError, setPasswordError] = useState("")
     const [usernameError, setUsernameError] = useState("")
+    const logout = props.logout
+
+    useEffect(() => {
+            logout()
+            localStorage.clear()
+    }, [])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -37,13 +44,16 @@ function Login(props) {
                 localStorage.setItem('name', data.name);
                 localStorage.setItem('userID', data.userId);
                 props.setLoggedIn(true)
-                navigate('/');
+                navigate('/test');
             })
     }
 
     return (
         <div>
-            <Navbar></Navbar>
+            <div>
+                <h3>Need An Account?</h3>
+                <Link to="/user/create">Sign Up</Link>
+            </div>
             <form action="" method='POST' onSubmit={handleSubmit}>
                 <input type="text" name='text' id="username" value={username} placeholder='Username/Email' onChange={(e) => setUsername(e.target.value)} required></input>
                 <input type="password" placeholder="Password"name='password' id="password" value={password} onChange={(e) => setPassword(e.target.value)} required></input>

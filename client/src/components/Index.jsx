@@ -1,13 +1,16 @@
-import { useState } from 'react'
+import {useEffect } from 'react'
+import {useNavigate } from 'react-router-dom';
 import '../App.css'
-import Navbar from './Navbar';
 
 function Index() {
+  const navigate = useNavigate()
 
-  return (
+    useEffect(() => {
+      navigate('/login')
+    }, [])  
+
+    return (
     <>
-        <Navbar></Navbar>
-        <h1>Index</h1>
     </>
   )
 }

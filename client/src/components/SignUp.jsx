@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import '../App.css'
-import Navbar from './Navbar';
+import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function SignUp() {
+    const navigate = useNavigate()
+
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -25,8 +28,8 @@ function SignUp() {
                     setPassword('')
                     return setUserTaken(true)
                 }
-                response.json()
-                console.log(response)
+                navigate('test')
+                return response.json()
             })
         } else {
             setMatchPassword(false)
@@ -35,7 +38,10 @@ function SignUp() {
 
     return (
         <div>
-            <Navbar></Navbar>
+            <div>
+                <h3>Already Have an Account?</h3>
+                <Link to="/login">Sign in!</Link>
+            </div>
             <form action="" method='POST' onSubmit={handleSubmit}>
                 <input type="text" name='text' id="username" value={username} placeholder='Username/Email' onChange={(e) => setUsername(e.target.value)} required></input>
                 <input type="password" name='password' id="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} required></input>
