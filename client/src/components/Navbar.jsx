@@ -15,8 +15,8 @@ const Navbar = (props) => {
                 <div>
                     {loggedIn == true &&
                         <div> 
-                            <Link to="/test">
-                                Test
+                            <Link to="/user/list">
+                                Users
                             </Link>
                             <button onClick={()=> logout()}>Logout</button>
                         </div>

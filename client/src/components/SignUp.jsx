@@ -28,7 +28,7 @@ function SignUp() {
                     setPassword('')
                     return setUserTaken(true)
                 }
-                navigate('test')
+                navigate('/login')
                 return response.json()
             })
         } else {

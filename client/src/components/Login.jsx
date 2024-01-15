@@ -13,8 +13,10 @@ function Login(props) {
     const logout = props.logout
 
     useEffect(() => {
+        if(localStorage.length > 0) {
             logout()
             localStorage.clear()
+        }
     }, [])
 
     const handleSubmit = (e) => {
@@ -44,7 +46,7 @@ function Login(props) {
                 localStorage.setItem('name', data.name);
                 localStorage.setItem('userID', data.userId);
                 props.setLoggedIn(true)
-                navigate('/test');
+                navigate('/user/list');
             })
     }
 

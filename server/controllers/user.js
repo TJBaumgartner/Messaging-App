@@ -4,6 +4,15 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const Token = require('../models/refreshToken')
 
+
+exports.allUsers = asyncHandler(async (req,res) => {
+    const allUsers = await User.find().sort({username: 1}).exec()
+    if(allUsers == null){
+        return res.send(400).json('No users found')
+    }
+    res.json(allUsers)
+})
+
 exports.sign_up_post = asyncHandler(async (req,res) => {
     const userExists = await User.findOne({username: req.body.username}).exec()
     if(userExists){

@@ -7,7 +7,7 @@ import Signup from './components/SignUp'
 import Login from './components/Login'
 import { useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Test from './components/Test';
+import Users from './components/Users';
 
 function App() {      
 
@@ -26,8 +26,10 @@ function App() {
         .then((response) => {
             if(response.status === 401){
                 console.log(localStorage)
+                if(loggedIn == true){
                   localStorage.clear()
                   navigate('/login');
+                }
             }
             return response.json()
         })
@@ -58,7 +60,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Index/>}/>
           <Route path="/login" element={<Login setLoggedIn={setLoggedIn} loggedIn={loggedIn} logout={logout}/>}/>
-          <Route path="/test" element={<Test/>}/>
+          <Route path="/user/list" element={<Users/>}/>
           <Route path="/user/create" element={<Signup/>}/>
           <Route path="*" element={<ErrorPage/>}/>
         </Routes>
