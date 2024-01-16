@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import '../App.css'
 import Navbar from './Navbar'
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 function Users() {
 
     const navigate = useNavigate()
@@ -29,12 +30,15 @@ function Users() {
             <Navbar></Navbar>
                 {allUsers ?(
                 allUsers.map((user) => (
-                    <div key={user._id}>
-                    <h1>{user.username}</h1>
-                    {/* <Link to={{
-                    pathname: `/blogger/posts/${post._id}`,
+                    // <div key={user._id}>
+                    // <h1>{user.username}</h1>
+                    <div  key={user._id}>
+                    <Link to={{
+                    pathname: `/user/${user._id}/message`,
                     }}
-                    >Detail</Link> */}
+                    >
+                    <h1>{user.username}</h1>
+                    </Link>
                     </div>
                 ))
                 ) : (

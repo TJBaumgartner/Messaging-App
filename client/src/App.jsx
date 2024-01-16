@@ -8,6 +8,7 @@ import Login from './components/Login'
 import { useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Users from './components/Users';
+import UserChat from './components/UserChat';
 
 function App() {      
 
@@ -62,6 +63,7 @@ function App() {
           <Route path="/login" element={<Login setLoggedIn={setLoggedIn} loggedIn={loggedIn} logout={logout}/>}/>
           <Route path="/user/list" element={<Users/>}/>
           <Route path="/user/create" element={<Signup/>}/>
+          <Route path="/user/:id/message" element={<UserChat/>}/>
           <Route path="*" element={<ErrorPage/>}/>
         </Routes>
     </div>
