@@ -1,10 +1,13 @@
-import {useEffect } from 'react'
+import {useEffect, useState } from 'react'
 import '../App.css'
 import { useParams } from 'react-router-dom';
 
 function UserChat() {
 
     const {id} = useParams()
+
+    const [user, setUser] = useState()
+    const [message, setMessage] = useState("")
 
     useEffect(() => {
         fetch(`http://localhost:5000/api/user/${id}/message`, {        
@@ -19,12 +22,38 @@ function UserChat() {
             }
             return response.json()
         })
-        .then(data => console.log(data))
+        .then((data) => {
+            setUser(data)
+        })
     }, [])
 
+    const sendMessage = (e) => {
+        e.preventDefault()
+        const recipient = user._id
+        const sender = localStorage.getItem('userID')
+        const data = {message, recipient, sender}
+        fetch(`http://localhost:5000/api/message/send`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + localStorage.getItem('access')
+            },
+            body: JSON.stringify(data)
+        })
+        .then((response) => {
+            console.log(response)
+            setMessage('')
+        })
+    }    
     return (
     <>
-        <h1>Some User</h1>
+        {user && 
+            <h1>{user.username}</h1>
+        }
+        <form action="" method='POST' onSubmit={sendMessage}>
+            <input type='text' id='message' value={message} onChange={(e) => setMessage(e.target.value)}></input>
+            <button type='submit'>Send</button>
+        </form>
     </>
   )
 }

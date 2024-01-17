@@ -11,5 +11,6 @@ router.post("/token", user.refresh)
 router.get("/user/list", authenticate, user.allUsers)
 
 router.get("/user/:id/message",authenticate, message.message);
+router.post("/message/send",authenticate, message.messageSend);
 
 module.exports = router;

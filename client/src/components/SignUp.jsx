@@ -24,7 +24,7 @@ function SignUp() {
                 body: JSON.stringify(user)
             })
             .then((response) => {
-                if(response.status === 400){
+                if(response.status === 400){        
                     setPassword('')
                     return setUserTaken(true)
                 }
