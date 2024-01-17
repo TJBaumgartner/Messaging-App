@@ -1,6 +1,7 @@
 import {useEffect, useState } from 'react'
 import '../App.css'
 import { useParams } from 'react-router-dom';
+import moment from "moment";    
 
 function UserChat() {
     const sender = localStorage.getItem('userID')
@@ -38,7 +39,6 @@ function UserChat() {
     }, [messagesLoaded, sentMessage])
 
     //Load All Messages
-    // useEffect(() => {
     const loadMessages = () => {
         if(messagesLoaded == true){
             const recipient = user._id
@@ -59,7 +59,6 @@ function UserChat() {
                 setAllMessages(data)
             })        
         }
-    // }, [messagesLoaded])
     }
 
     const sendMessage = (e) => {
@@ -78,8 +77,10 @@ function UserChat() {
         .then((response) => {
             setMessage('')
             setSentMessage(true)
+            return response.json()
         })
     }    
+
     return (
     <>
         {user && 
@@ -88,11 +89,13 @@ function UserChat() {
         {allMessages ?(
             allMessages[1].map((message) => (
                 <div  key={message._id}>
+                    <span>{moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM-DD-YYYY')}</span>            
                     <h1>{message.message}</h1>
                 </div>
             )),
             allMessages[0].map((message) => (
                 <div  key={message._id}>
+                    <span>{moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').utcOffset('-400').format('MM-DD-YYYY hh:mma')}</span>
                     <h1>{message.message}</h1>
                 </div>
             ))
