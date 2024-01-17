@@ -11,6 +11,7 @@ function UserChat() {
     const [message, setMessage] = useState("")
     const [allMessages, setAllMessages] = useState()
     const [messagesLoaded, setMessagesLoaded] = useState(false)
+    const [sentMessage, setSentMessage] = useState(false)
 
     //Load message Recipient
     useEffect(() => {
@@ -32,8 +33,13 @@ function UserChat() {
         })
     }, [])
 
-    //Load All Messages
     useEffect(() => {
+            loadMessages()
+    }, [messagesLoaded, sentMessage])
+
+    //Load All Messages
+    // useEffect(() => {
+    const loadMessages = () => {
         if(messagesLoaded == true){
             const recipient = user._id
             const sender = localStorage.getItem('userID')
@@ -47,14 +53,14 @@ function UserChat() {
                 body: JSON.stringify(data)
             })
             .then((response) => {
-                console.log(response)
                 return response.json()
             })
             .then((data) => {
-                console.log(data)
                 setAllMessages(data)
-            })        }
-    }, [messagesLoaded])
+            })        
+        }
+    // }, [messagesLoaded])
+    }
 
     const sendMessage = (e) => {
         e.preventDefault()
@@ -70,8 +76,8 @@ function UserChat() {
             body: JSON.stringify(data)
         })
         .then((response) => {
-            console.log(response)
             setMessage('')
+            setSentMessage(true)
         })
     }    
     return (
