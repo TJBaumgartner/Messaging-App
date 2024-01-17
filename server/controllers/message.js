@@ -9,13 +9,16 @@ exports.message = asyncHandler(async (req,res) => {
     }
     res.json(user)
 })
+
+exports.allMessages = asyncHandler(async (req,res) => {
+    const [messageRecipient, messageSender] = await Promise.all([
+        Message.find({toUser: req.body.sender, fromUser: req.body.recipient}),
+        Message.find({toUser: req.body.recipient, fromUser: req.body.sender}),
+    ])
+    res.status(200).json([messageRecipient, messageSender])
+})
+
 exports.messageSend = asyncHandler(async (req,res) => {
-    // const [recipient, sender] = await User.find([
-    //     {_id: req.body.recipient},
-    //     {_id: req.body.sender},
-    // ])
-    // console.log(recipient)
-    // console.log(sender)
     const [recipient, sender] = await Promise.all([
         User.findOne({_id: req.body.recipient}),
         User.findOne({_id: req.body.sender})

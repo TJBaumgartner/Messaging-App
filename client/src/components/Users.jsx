@@ -30,8 +30,6 @@ function Users() {
             <Navbar></Navbar>
                 {allUsers ?(
                 allUsers.map((user) => (
-                    // <div key={user._id}>
-                    // <h1>{user.username}</h1>
                     <div  key={user._id}>
                     <Link to={{
                     pathname: `/user/${user._id}/message`,
