@@ -1,0 +1,13 @@
+*{
+    padding: none;
+    margin: none;
+    text-decoration: none;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.chatMessages{
+
+}
+.sender{
+    background-color: green;
+}

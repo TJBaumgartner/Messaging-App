@@ -11,11 +11,18 @@ exports.message = asyncHandler(async (req,res) => {
 })
 
 exports.allMessages = asyncHandler(async (req,res) => {
-    const [messageRecipient, messageSender] = await Promise.all([
-        Message.find({toUser: req.body.sender, fromUser: req.body.recipient}),
-        Message.find({toUser: req.body.recipient, fromUser: req.body.sender}),
-    ])
-    res.status(200).json([messageRecipient, messageSender])
+    // const [messageRecipient, messageSender] = await Promise.all([
+    //     Message.find({toUser: req.body.sender, fromUser: req.body.recipient}),
+    //     Message.find({toUser: req.body.recipient, fromUser: req.body.sender}),
+    // ])
+    // console.log(messageRecipient, messageSender)
+    // res.status(200).json([messageRecipient, messageSender])
+    const allMessages = await Message.find({ $or: [
+        {toUser: req.body.sender, fromUser: req.body.recipient},
+        {toUser: req.body.recipient, fromUser: req.body.sender}
+    ]}).sort({createdAt: 1})
+    // console.log(messageRecipient, messageSender)
+    res.status(200).json(allMessages)
 })
 
 exports.messageSend = asyncHandler(async (req,res) => {
@@ -28,8 +35,8 @@ exports.messageSend = asyncHandler(async (req,res) => {
     }
     const message = new Message({
         message: req.body.message,
-        fromUser: req.body.recipient,
-        toUser: req.body.sender
+        fromUser: req.body.sender,
+        toUser: req.body.recipient
     })
     await message.save()
     res.status(200).json('Message Sent')

@@ -10,6 +10,8 @@ function UserChat() {
 
     const [user, setUser] = useState()
     const [message, setMessage] = useState("")
+    const [senderMessages, setSenderMessages] = useState()
+    const [recipientMessages, setRecipientMessages] = useState()
     const [allMessages, setAllMessages] = useState()
     const [messagesLoaded, setMessagesLoaded] = useState(false)
     const [sentMessage, setSentMessage] = useState(false)
@@ -56,7 +58,10 @@ function UserChat() {
                 return response.json()
             })
             .then((data) => {
+                // setSenderMessages(data[0])
+                // setRecipientMessages(data[1])
                 setAllMessages(data)
+                console.log(data)
             })        
         }
     }
@@ -81,27 +86,49 @@ function UserChat() {
         })
     }    
 
+    const MessageBy = (message) => {
+
+    }
     return (
     <>
         {user && 
             <h1>{user.username}</h1>
         }
-        {allMessages ?(
-            allMessages[1].map((message) => (
-                <div  key={message._id}>
-                    <span>{moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM-DD-YYYY')}</span>            
-                    <h1>{message.message}</h1>
-                </div>
-            )),
-            allMessages[0].map((message) => (
-                <div  key={message._id}>
-                    <span>{moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').utcOffset('-400').format('MM-DD-YYYY hh:mma')}</span>
-                    <h1>{message.message}</h1>
-                </div>
-            ))
-        ) : (
-            <p>There are no messages</p>
-        )}
+        <div className='chatMessages'>
+            {/* {senderMessages &&
+                senderMessages.map((message) => (
+                    <div  key={message._id}>
+                        <span>{moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM-DD-YYYY')}</span>            
+                        <h1>{message.message}</h1>
+                    </div>
+                ))
+            }
+            {recipientMessages &&
+                recipientMessages.map((message) => (
+                    <div  key={message._id}>
+                        <span>{moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM-DD-YYYY')}</span>            
+                        <h1>{message.message}</h1>
+                    </div>
+                ))
+            } */}
+            {allMessages &&
+                allMessages.map((message) => (
+                    (message.fromUser == sender) ?
+                    <div className='sender' key={message._id}>
+                        <span>{moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM-DD-YYYY')}</span>            
+                        <h1>{message.message}</h1>
+                    </div>                    
+                    :
+                    <div className='recipient' key={message._id}>
+                        <span>{moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM-DD-YYYY')}</span>            
+                        <h1>{message.message}</h1>
+                    </div>                          // <div  key={message._id}>
+                    //     <span>{moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM-DD-YYYY')}</span>            
+                    //     <h1>{message.message}</h1>
+                    // </div>
+                ))
+            }
+        </div>
         <form action="" method='POST' onSubmit={sendMessage}>
             <input type='text' id='message' value={message} onChange={(e) => setMessage(e.target.value)}></input>
             <button type='submit'>Send</button>
