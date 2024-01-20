@@ -4,6 +4,7 @@ import Navbar from './Navbar'
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 function Users() {
+    const loggedUser = localStorage.getItem('userID')
 
     const navigate = useNavigate()
     const [allUsers, setAllUsers] = useState(null)
@@ -30,6 +31,9 @@ function Users() {
             <Navbar></Navbar>
                 {allUsers ?(
                 allUsers.map((user) => (
+                    (loggedUser == user._id) ?
+                    null
+                    :
                     <div  key={user._id}>
                     <Link to={{
                     pathname: `/user/${user._id}/message`,

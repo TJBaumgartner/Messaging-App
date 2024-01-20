@@ -49,24 +49,29 @@ function Login(props) {
                 navigate('/user/list');
             })
     }
-
+    let validationStyle = {border: '1px solid black'}
+    if(passwordError == true || usernameError == true){
+        validationStyle = {border: '1px solid red'}
+    }
     return (
-        <div>
-            <div>
-                <h3>Need An Account?</h3>
-                <Link to="/user/create">Sign Up</Link>
+        <div className='loginWrapper'>
+            <div className='loginContainer'>
+                <h1>Login</h1>
+                <form action="" method='POST' onSubmit={handleSubmit} className='loginForm'>
+                    <label htmlFor='username'>Username</label>
+                    <input type="text" name='text' id="username" value={username} placeholder='Type your Username' onChange={(e) => setUsername(e.target.value.replace(" ", ""))} required style={validationStyle}></input>
+                    <label htmlFor='password'>Password</label>
+                    <input type="password" placeholder="Type your Password"name='password' id="password" value={password} onChange={(e) => setPassword(e.target.value.replace(" ", ""))} required style={validationStyle}></input>
+                    {passwordError == true || usernameError == true &&
+                        <h3>Password or Username is incorrect</h3>
+                    }
+                    <button type='submit'>Login</button>
+                </form>
+                <div className='createAccountLink'>
+                    <h3>Need An Account?</h3>
+                    <Link to="/user/create">Sign Up!</Link>
+                </div>
             </div>
-            <form action="" method='POST' onSubmit={handleSubmit}>
-                <input type="text" name='text' id="username" value={username} placeholder='Username/Email' onChange={(e) => setUsername(e.target.value)} required></input>
-                <input type="password" placeholder="Password"name='password' id="password" value={password} onChange={(e) => setPassword(e.target.value)} required></input>
-                <button type='submit'>Log in</button>
-            </form>
-            {passwordError == true &&
-                <h3>Password is not correct</h3>
-            }
-            {usernameError == true &&
-                <h3>Username does not exist</h3>
-            }
         </div>
     )
 }

@@ -10,8 +10,6 @@ function UserChat() {
 
     const [user, setUser] = useState()
     const [message, setMessage] = useState("")
-    const [senderMessages, setSenderMessages] = useState()
-    const [recipientMessages, setRecipientMessages] = useState()
     const [allMessages, setAllMessages] = useState()
     const [messagesLoaded, setMessagesLoaded] = useState(false)
     const [sentMessage, setSentMessage] = useState(false)
@@ -27,6 +25,9 @@ function UserChat() {
         .then((response) => {
             if(response.status === 400){
                 navigate('/user/list');
+            }
+            if(response.status === 401){
+                navigate('/login');
             }
             return response.json()
         })
@@ -58,8 +59,6 @@ function UserChat() {
                 return response.json()
             })
             .then((data) => {
-                // setSenderMessages(data[0])
-                // setRecipientMessages(data[1])
                 setAllMessages(data)
                 console.log(data)
             })        
@@ -95,22 +94,6 @@ function UserChat() {
             <h1>{user.username}</h1>
         }
         <div className='chatMessages'>
-            {/* {senderMessages &&
-                senderMessages.map((message) => (
-                    <div  key={message._id}>
-                        <span>{moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM-DD-YYYY')}</span>            
-                        <h1>{message.message}</h1>
-                    </div>
-                ))
-            }
-            {recipientMessages &&
-                recipientMessages.map((message) => (
-                    <div  key={message._id}>
-                        <span>{moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM-DD-YYYY')}</span>            
-                        <h1>{message.message}</h1>
-                    </div>
-                ))
-            } */}
             {allMessages &&
                 allMessages.map((message) => (
                     (message.fromUser == sender) ?
@@ -122,10 +105,7 @@ function UserChat() {
                     <div className='recipient' key={message._id}>
                         <span>{moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM-DD-YYYY')}</span>            
                         <h1>{message.message}</h1>
-                    </div>                          // <div  key={message._id}>
-                    //     <span>{moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM-DD-YYYY')}</span>            
-                    //     <h1>{message.message}</h1>
-                    // </div>
+                    </div>
                 ))
             }
         </div>

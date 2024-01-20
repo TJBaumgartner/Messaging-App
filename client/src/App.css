@@ -1,8 +1,9 @@
 *{
-    padding: none;
-    margin: none;
+    padding: 0;
+    margin: 0;
     text-decoration: none;
     font-family: 'Times New Roman', Times, serif;
+    box-sizing: border-box;
 }
 
 .chatMessages{
@@ -10,4 +11,67 @@
 }
 .sender{
     background-color: green;
+}
+
+
+
+/*Login page Styling*/
+/*Login page Styling*/
+/*Login page Styling*/
+
+.loginWrapper{
+    width: 100vw;
+    height: 100vh;
+    background-color: gray;
+}
+.loginContainer{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);    width: 40%;
+    height: 60%;
+    padding: 50px 10px 30px 10px;
+    border-radius: 10px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+}
+.loginContainer h1{
+    padding-top: 50px;
+}
+.createAccountLink{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5rem;
+}
+.createAccountLink a{
+    color: black;
+    text-decoration: underline;
+}
+.loginForm{
+    width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+.loginForm label{
+    font-size: 1.2rem;
+}
+.loginForm [type=submit]{
+    width: 100%;
+    padding: 10px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.loginForm [type=text], [type=password]{
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }

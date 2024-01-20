@@ -40,7 +40,7 @@ function SignUp() {
         <div>
             <div>
                 <h3>Already Have an Account?</h3>
-                <Link to="/login">Sign in!</Link>
+                <Link to="/login">Login!</Link>
             </div>
             <form action="" method='POST' onSubmit={handleSubmit}>
                 <input type="text" name='text' id="username" value={username} placeholder='Username/Email' onChange={(e) => setUsername(e.target.value)} required></input>
