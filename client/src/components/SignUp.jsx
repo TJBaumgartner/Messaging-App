@@ -37,23 +37,25 @@ function SignUp() {
     }
 
     return (
-        <div>
-            <div>
-                <h3>Already Have an Account?</h3>
-                <Link to="/login">Login!</Link>
+        <div className='signupWrapper'>
+            <div className='signupContainer'>
+                <h1>Sign Up</h1>
+                <form action="" method='POST' className='signupForm' onSubmit={handleSubmit}>
+                    <input type="text" name='text' id="username" value={username} placeholder='Username/Email' onChange={(e) => setUsername(e.target.value)} required></input>
+                    <input type="password" name='password' id="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} required></input>
+                    <input type="password" name='confirmPassword' id="confirmPassword" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required></input>
+                    <div className='createAccountLink'>
+                        <h3>Already a user? <Link to="/login">Login!</Link></h3>
+                    </div>
+                    <button type='submit'>Sign Up!</button>
+                </form>
+                {matchPassword === false &&
+                    <h2>Passwords must match</h2>
+                }    
+                {userTaken === true &&
+                    <h2>Username is taken</h2>
+                }  
             </div>
-            <form action="" method='POST' onSubmit={handleSubmit}>
-                <input type="text" name='text' id="username" value={username} placeholder='Username/Email' onChange={(e) => setUsername(e.target.value)} required></input>
-                <input type="password" name='password' id="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} required></input>
-                <input type="password" name='confirmPassword' id="confirmPassword" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required></input>
-                <button type='submit'>Sign Up!</button>
-            </form>
-            {matchPassword === false &&
-                <h2>Passwords must match</h2>
-            }    
-            {userTaken === true &&
-                <h2>Username is taken</h2>
-            }  
         </div>
     )
 }

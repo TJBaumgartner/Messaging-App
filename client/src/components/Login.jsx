@@ -65,12 +65,12 @@ function Login(props) {
                     {passwordError == true || usernameError == true &&
                         <h3>Password or Username is incorrect</h3>
                     }
+                    <div className='createAccountLink'>
+                        <h3>Need An Account? <Link to="/user/create">Sign Up!</Link></h3>
+                        
+                    </div>
                     <button type='submit'>Login</button>
                 </form>
-                <div className='createAccountLink'>
-                    <h3>Need An Account?</h3>
-                    <Link to="/user/create">Sign Up!</Link>
-                </div>
             </div>
         </div>
     )
