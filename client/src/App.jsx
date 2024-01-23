@@ -66,7 +66,7 @@ function App() {
           <Route path="/user/create" element={<Signup/>}/>
           <Route path="/user/:id/message" element={<UserChat/>}/>
           <Route path="/user/:id/profile" element={<Profile/>}/>
-          <Route path="*" element={<ErrorPage/>}/>
+          <Route path="*" element={<Index/>}/>
         </Routes>
     </div>
   )

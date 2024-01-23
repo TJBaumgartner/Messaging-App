@@ -15,5 +15,6 @@ router.get("/user/:id/message",authenticate, message.message);
 router.post("/user/:id/allMessages",authenticate, message.allMessages);
 
 router.get("/user/:id/profile",authenticate, user.profile);
+router.post("/user/:id/profile",authenticate, user.profileEdit);
 
 module.exports = router;

@@ -18,7 +18,24 @@ exports.profile = asyncHandler(async (req,res) => {
     if(user == null){
         return res.send(401).json('No users found')
     }
-    console.log(user)
+    res.json(user)
+})
+
+exports.profileEdit = asyncHandler(async (req,res) => {
+    const user = await User.findOne({_id: req.params.id})
+    if(user == null){
+        return res.send(401).json('No users found')
+    }
+    const updatedUser = new User({
+        username: user.username,
+        password: user.password,
+        bio: req.body.bio,
+        about: req.body.about,
+        _id: user._id
+    })
+    console.log(updatedUser)
+    await User.findOneAndUpdate({_id: req.params.id}, updatedUser)
+    res.json(updatedUser)
 })
 
 exports.sign_up_post = asyncHandler(async (req,res) => {
