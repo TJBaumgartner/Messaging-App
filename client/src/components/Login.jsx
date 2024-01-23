@@ -49,9 +49,9 @@ function Login(props) {
                 navigate('/user/list');
             })
     }
-    let validationStyle = {border: '1px solid black'}
+    let validationStyle = {border: '2px solid black'}
     if(passwordError == true || usernameError == true){
-        validationStyle = {border: '1px solid red'}
+        validationStyle = {border: '2px solid red'}
     }
     return (
         <div className='loginWrapper'>

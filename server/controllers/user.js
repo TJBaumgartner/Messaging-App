@@ -13,6 +13,14 @@ exports.allUsers = asyncHandler(async (req,res) => {
     res.json(allUsers)
 })
 
+exports.profile = asyncHandler(async (req,res) => {
+    const user = await User.findOne({_id: req.params.id})
+    if(user == null){
+        return res.send(401).json('No users found')
+    }
+    console.log(user)
+})
+
 exports.sign_up_post = asyncHandler(async (req,res) => {
     const userExists = await User.findOne({username: req.body.username}).exec()
     if(userExists){
@@ -21,7 +29,9 @@ exports.sign_up_post = asyncHandler(async (req,res) => {
     const securePass = await bcrypt.hash(req.body.password, 10);
     const user = new User({
         username: req.body.username,
-        password: securePass
+        password: securePass,
+        bio: "User has no bio",
+        about: "User has no about"
     })
     await user.save()
     return res.status(200).send('New User created!')

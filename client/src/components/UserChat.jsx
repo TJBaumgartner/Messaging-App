@@ -1,6 +1,6 @@
 import {useEffect, useState } from 'react'
 import '../App.css'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import moment from "moment";    
 
 function UserChat() {
@@ -85,13 +85,12 @@ function UserChat() {
         })
     }    
 
-    const MessageBy = (message) => {
-
-    }
     return (
     <>
         {user && 
-            <h1>{user.username}</h1>
+            <Link to={`/user/${id}/profile`}>
+                <h1>{user.username}</h1>
+            </Link>
         }
         <div className='chatMessages'>
             {allMessages &&

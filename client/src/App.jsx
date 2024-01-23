@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Users from './components/Users';
 import UserChat from './components/UserChat';
+import Profile from './components/Profile';
 
 function App() {      
 
@@ -64,6 +65,7 @@ function App() {
           <Route path="/user/list" element={<Users/>}/>
           <Route path="/user/create" element={<Signup/>}/>
           <Route path="/user/:id/message" element={<UserChat/>}/>
+          <Route path="/user/:id/profile" element={<Profile/>}/>
           <Route path="*" element={<ErrorPage/>}/>
         </Routes>
     </div>
