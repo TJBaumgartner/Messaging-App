@@ -11,7 +11,8 @@ function Profile() {
     const [displayForm, setDisplayForm] = useState(false)
     const [bio, setBio] = useState('')
     const [about, setAbout] = useState('')
-
+    const [userLoaded, setUserLoaded] = useState(false)
+    const [isMyAccount, setIsMyAccount] = useState(null)
     useEffect(() => {
         fetch(`http://localhost:5000/api/user/${id}/profile`, {        
             headers: {
@@ -25,9 +26,25 @@ function Profile() {
             }
             return response.json()
         })
-        .then((data) => setUser(data))
+        .then((data) => {
+            setUser(data)
+            setUserLoaded(true)
+        })
     }, [displayForm])
 
+    useEffect(() => {
+        checkAccount()
+    }, [userLoaded])
+
+    const checkAccount = () => {
+        if(userLoaded == true){
+            if(user._id == localStorage.getItem('userID')){
+                setIsMyAccount(true)
+            } else {
+                setIsMyAccount(false)
+            }
+        }
+    }
     const showForm = () => {
         setDisplayForm(true)
         setBio(user.bio)
@@ -37,8 +54,6 @@ function Profile() {
         e.preventDefault();
 
         const content = {bio, about}
-        console.log(content)
-        console.log('hi')
         fetch(`http://localhost:5000/api/user/${id}/profile`, {
         method: 'POST',
         headers: {
@@ -62,12 +77,21 @@ function Profile() {
             <div className='profileWrapper'>
                 {user && displayForm == false &&
                     <div className='profileContainer'>
+                        <div>
+                        <Link to={{
+                        pathname: `/user/${user._id}/message`,
+                        }}
+                        >
                         <h1>{user.username}</h1>
+                        </Link>
+                        </div>
                         <ul>
                             <li>Bio: {user.bio}</li>
                             <li>About: {user.about}</li>
                         </ul>
-                        <button onClick={() => showForm()}>Edit Profile</button>
+                        {isMyAccount == true &&
+                            <button onClick={() => showForm()}>Edit Profile</button>
+                        }
                     </div>
                 }
                 {displayForm == true &&

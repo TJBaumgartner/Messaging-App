@@ -10,15 +10,23 @@ const Navbar = (props) => {
     const setLoggedIn = props.setLoggedIn
     const logout = props.logout
 
+    const id = localStorage.getItem('userID')
+    const name = localStorage.getItem('name')
     return (
-        <div className="Navbar"> 
+        <div className="navContainer"> 
                 <div>
                     {loggedIn == true &&
-                        <div> 
+                        <div className="Navbar"> 
                             <Link to="/user/list">
-                                Users
+                                <h1>Users</h1>
                             </Link>
-                            <button onClick={()=> logout()}>Logout</button>
+                            <Link to={{
+                                pathname: `/user/${id}/profile`,
+                                }}
+                                >
+                                <h1>Profile</h1>
+                            </Link>
+                            <button onClick={()=> logout()} className="logout">Logout</button>
                         </div>
                     }
                 </div>

@@ -38,7 +38,7 @@ function UserChat() {
     }, [])
 
     useEffect(() => {
-            loadMessages()
+        loadMessages()
     }, [messagesLoaded, sentMessage])
 
     //Load All Messages
