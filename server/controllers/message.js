@@ -20,7 +20,7 @@ exports.allMessages = asyncHandler(async (req,res) => {
     const allMessages = await Message.find({ $or: [
         {toUser: req.body.sender, fromUser: req.body.recipient},
         {toUser: req.body.recipient, fromUser: req.body.sender}
-    ]}).sort({createdAt: 1})
+    ]}).sort({createdAt: -1})
     // console.log(messageRecipient, messageSender)
     res.status(200).json(allMessages)
 })

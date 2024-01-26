@@ -77,20 +77,33 @@ function Profile() {
             <div className='profileWrapper'>
                 {user && displayForm == false &&
                     <div className='profileContainer'>
+                        {isMyAccount == false &&
                         <div>
-                        <Link to={{
-                        pathname: `/user/${user._id}/message`,
-                        }}
-                        >
-                        <h1>{user.username}</h1>
-                        </Link>
+                            <div>
+                            <Link to={{
+                            pathname: `/user/${user._id}/message`,
+                            }}
+                            >
+                            <h1>{user.username}</h1>
+                            </Link>
+                            </div>
+                            <ul>
+                                <li>Bio: {user.bio}</li>
+                                <li>About: {user.about}</li>
+                            </ul>
                         </div>
-                        <ul>
-                            <li>Bio: {user.bio}</li>
-                            <li>About: {user.about}</li>
-                        </ul>
+                        }
                         {isMyAccount == true &&
+                        <div>
+                            <div>
+                            <h1>{user.username}</h1>
+                            </div>
+                            <ul>
+                                <li>Bio: {user.bio}</li>
+                                <li>About: {user.about}</li>
+                            </ul>
                             <button onClick={() => showForm()}>Edit Profile</button>
+                        </div>
                         }
                     </div>
                 }

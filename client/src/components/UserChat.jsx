@@ -39,6 +39,7 @@ function UserChat() {
 
     useEffect(() => {
         loadMessages()
+        setSentMessage(false)
     }, [messagesLoaded, sentMessage])
 
     //Load All Messages
@@ -86,7 +87,7 @@ function UserChat() {
     }    
 
     return (
-    <>
+    <div className='messageContainer'>
         {user && 
             <Link to={`/user/${id}/profile`}>
                 <h1>{user.username}</h1>
@@ -96,23 +97,27 @@ function UserChat() {
             {allMessages &&
                 allMessages.map((message) => (
                     (message.fromUser == sender) ?
-                    <div className='sender' key={message._id}>
-                        <span>{moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM-DD-YYYY')}</span>            
-                        <h1>{message.message}</h1>
+                    <div className='chatContainerS' key={message._id}>
+                        <div className='sender'>
+                            <span>{user.username} {moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM/DD/YYYY')}</span>            
+                            <p>{message.message}</p>
+                        </div>
                     </div>                    
                     :
-                    <div className='recipient' key={message._id}>
-                        <span>{moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM-DD-YYYY')}</span>            
-                        <h1>{message.message}</h1>
+                    <div className='chatContainerR' key={message._id}>
+                        <div className='recipient'>
+                            <span>{localStorage.getItem('name')} {moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM/DD/YYYY')}</span>            
+                            <p>{message.message}</p>
+                        </div>
                     </div>
                 ))
             }
         </div>
-        <form action="" method='POST' onSubmit={sendMessage}>
+        <form action="" method='POST' onSubmit={sendMessage} className='chatForm'>
             <input type='text' id='message' value={message} onChange={(e) => setMessage(e.target.value)}></input>
             <button type='submit'>Send</button>
         </form>
-    </>
+    </div>
   )
 }
 
