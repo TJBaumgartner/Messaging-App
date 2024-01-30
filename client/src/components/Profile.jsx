@@ -74,7 +74,6 @@ function Profile() {
     return (
         <>
             <Navbar></Navbar>
-            <div className='profileWrapper'>
                 {user && displayForm == false &&
                     <div className='profileContainer'>
                         {isMyAccount == false &&
@@ -94,15 +93,17 @@ function Profile() {
                         </div>
                         }
                         {isMyAccount == true &&
-                        <div>
-                            <div>
-                            <h1>{user.username}</h1>
+                        <div className='profile'>
+                            <div className='profileTop'>
+                            </div>
+                            <div className='profileName'>
+                                <h1>{user.username}</h1>
+                                <button onClick={() => showForm()}>Edit Profile</button>
                             </div>
                             <ul>
-                                <li>Bio: {user.bio}</li>
-                                <li>About: {user.about}</li>
+                                <li><h2>Bio:</h2> <p>{user.bio}</p></li>
+                                <li><h2>About:</h2> <p>{user.about}</p></li>
                             </ul>
-                            <button onClick={() => showForm()}>Edit Profile</button>
                         </div>
                         }
                     </div>
@@ -111,13 +112,14 @@ function Profile() {
                     <div className='profileContainer'>
                         <h1>{user.username}</h1>
                         <form action="" method='POST' onSubmit={submitChange}>
-                            <input type='text' required value={bio} onChange={(e) => setBio(e.target.value)}></input>
-                            <input type='text' required value={about} onChange={(e) => setAbout(e.target.value)}></input>
+                            <p>Bio</p>
+                            <textarea required value={bio} onChange={(e) => setBio(e.target.value)} maxLength={"200"}></textarea>
+                            <p>About</p>
+                            <textarea type='text' required value={about} onChange={(e) => setAbout(e.target.value)} maxLength={"200"}></textarea>
                             <button type='submit'>Confirm</button>
                         </form>
                     </div>                
                 }
-            </div>
         </>
     )
 }

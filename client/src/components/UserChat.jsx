@@ -99,14 +99,14 @@ function UserChat() {
                     (message.fromUser == sender) ?
                     <div className='chatContainerS' key={message._id}>
                         <div className='sender'>
-                            <span>{user.username} {moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM/DD/YYYY')}</span>            
+                            <span>{localStorage.getItem('name')} {moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM/DD/YYYY')}</span>            
                             <p>{message.message}</p>
                         </div>
                     </div>                    
                     :
                     <div className='chatContainerR' key={message._id}>
                         <div className='recipient'>
-                            <span>{localStorage.getItem('name')} {moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM/DD/YYYY')}</span>            
+                            <span>{user.username} {moment(message.createdAt, 'YYYY-MM-DD hh:mm:ss').format('MM/DD/YYYY')}</span>            
                             <p>{message.message}</p>
                         </div>
                     </div>
@@ -114,7 +114,7 @@ function UserChat() {
             }
         </div>
         <form action="" method='POST' onSubmit={sendMessage} className='chatForm'>
-            <input type='text' id='message' value={message} onChange={(e) => setMessage(e.target.value)}></input>
+            <textarea id='message' value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
             <button type='submit'>Send</button>
         </form>
     </div>
